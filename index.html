@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>هشام حسن | مطور واجهات</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- شريط تقدم القراءة (JS) -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <div class="bg-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <nav>
+<a href="#home" class="logo">
+  <img src="images/logo-white.png.png" alt="Logo" class="logo-light">
+  <img src="images/logo-black.png.png" alt="Logo" class="logo-dark">
+</a>
+
+
+<ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">الرئيسية</a></li>
+      <li><a href="#about">عني</a></li>
+      <li><a href="#skills">المهارات</a></li>
+      <li><a href="#experience">الخبرات</a></li>
+      <li><a href="#projects">المشاريع</a></li>
+      <li><a href="#contact">تواصل</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" title="تبديل المظهر">🌙</button>
+      <button class="icon-btn burger" id="burger">☰</button>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <div class="badge"><span class="dot"></span> متاح للعمل الحر</div>
+      <h1>مرحباً، أنا <span class="grad">هشام حسن</span></h1>
+      <div class="typing"><span id="typed"></span><span class="cursor"></span></div>
+      <p class="hero-desc">
+        مطور واجهات أمامية شغوف، أصنع تجارب رقمية استثنائية بلمسة إبداعية.
+        متخصص في بناء تطبيقات ويب سريعة، جميلة، وسهلة الاستخدام.
+      </p>
+      <div class="btns">
+        <a href="#projects" class="btn btn-primary">شاهد أعمالي ←</a>
+        <button class="btn btn-ghost" data-copy="heshamcrazy0@gmail.com"> نسخ بريدي</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+<div class="avatar">
+  <div class="avatar-inner">
+    <img src="images/me.jpeg" alt="هشام حسن">
+  </div>
+</div>        <div class="float-card fc1"> 5+ سنوات خبرة</div>
+        <div class="float-card fc2"> 40+ مشروع</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-head reveal">
+      <div class="sec-tag">— من أنا —</div>
+      <h2 class="sec-title">نبذة <span>عني</span></h2>
+    </div>
+    <div class="about">
+      <div class="about-card reveal">
+        <p>أنا هشام حسن، مطور واجهات أمامية، أعمل على تحويل الأفكار إلى منتجات رقمية حقيقية. أؤمن بأن التصميم الجيد ليس فقط ما يبدو جميلاً، بل ما يعمل بسلاسة ويحل مشكلة المستخدم.</p>
+        <p>خلال السنوات الماضية عملت مع فرق مختلفة وشركات ناشئة، وبنيت تطبيقات ويب يستخدمها الآلاف يومياً.</p>
+        <div class="stats">
+          <div class="stat"><h3 data-count="5" data-suffix="+">0</h3><p>سنوات خبرة</p></div>
+          <div class="stat"><h3 data-count="40" data-suffix="+">0</h3><p>مشروع منجز</p></div>
+          <div class="stat"><h3 data-count="25" data-suffix="+">0</h3><p>عميل سعيد</p></div>
+          <div class="stat"><h3 data-count="12">0</h3><p>جائزة وتقدير</p></div>
+        </div>
+      </div>
+      <div class="about-card reveal">
+        <h3 style="margin-bottom:24px;font-size:1.3rem">معلومات سريعة</h3>
+        <div class="info-list">
+          <div class="info-row"><span>📍 الموقع</span><strong>القــاهــرة، مــــصــــر</strong></div>
+          <div class="info-row"><span>💼 الوظيفة</span><strong>Senior Frontend</strong></div>
+          <div class="info-row"><span>📧 البريد</span><strong>heshamcrazy0@gmail.com</strong></div>
+          <div class="info-row"><span>🎓 التعليم</span><strong> نظم المعلومات </strong></div>
+          <div class="info-row"><span>🌐 اللغات</span><strong>عربي ، إنجليزي</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head reveal">
+      <div class="sec-tag">— خبراتي التقنية —</div>
+      <h2 class="sec-title">المهارات <span>والأدوات</span></h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <h3>🎨 تطوير الواجهات</h3>
+        <div class="skill-item"><div class="skill-top"><span>HTML5 / CSS3</span><span class="pct">95%</span></div><div class="bar"><span data-w="95"></span></div></div>
+        <div class="skill-item"><div class="skill-top"><span>JavaScript</span><span class="pct">92%</span></div><div class="bar"><span data-w="92"></span></div></div>
+        <div class="skill-item"><div class="skill-top"><span>React / Next.js</span><span class="pct">90%</span></div><div class="bar"><span data-w="90"></span></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>🚀 مهارات شخصية</h3>
+        <div class="skill-item"><div class="skill-top"><span>حل المشكلات</span><span class="pct">95%</span></div><div class="bar"><span data-w="95"></span></div></div>
+        <div class="skill-item"><div class="skill-top"><span>العمل الجماعي</span><span class="pct">93%</span></div><div class="bar"><span data-w="93"></span></div></div>
+        <div class="skill-item"><div class="skill-top"><span>التعلم المستمر</span><span class="pct">97%</span></div><div class="bar"><span data-w="97"></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head reveal">
+      <div class="sec-tag">— مسيرتي المهنية —</div>
+      <h2 class="sec-title">الخبرات <span>العملية</span></h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal"><div class="tl-content"><div class="tl-date">2022 — الآن</div><h3>مطور واجهات أول</h3><div class="tl-company">TechVision · الرياض</div><p>أقود فريق تطوير الواجهة الأمامية، وأشرف على منصة SaaS يستخدمها 50 ألف مستخدم شهرياً.</p></div></div>
+      <div class="tl-item reveal"><div class="tl-content"><div class="tl-date">2020 — 2022</div><h3>مطور واجهات</h3><div class="tl-company">Startup Hub · دبي</div><p>طوّرت أكثر من 15 تطبيق ويب لعملاء في التجارة الإلكترونية والتعليم.</p></div></div>
+      <div class="tl-item reveal"><div class="tl-content"><div class="tl-date">2019 — 2020</div><h3>مطور جنيور</h3><div class="tl-company">Digital Agency · القاهرة</div><p>بدأت رحلتي في عالم تطوير الويب، وبنيت أولى مشاريعي كفريلانسر.</p></div></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head reveal">
+      <div class="sec-tag">— أعمالي —</div>
+      <h2 class="sec-title">المشاريع <span>المميزة</span></h2>
+    </div>
+
+    <!-- فلتر المشاريع (JS) -->
+    <div class="filter-btns reveal">
+      <button class="filter-btn active" data-filter="all">الكل</button>
+      <button class="filter-btn" data-filter="frontend">واجهات</button>
+      <button class="filter-btn" data-filter="fullstack">Fullstack</button>
+    </div>
+
+    <div class="projects-grid" id="projectsGrid">
+      <div class="project reveal" data-category="fullstack">
+        <div class="project-img">🛒</div>
+        <div class="project-body">
+          <h3>متجر إلكتروني حديث</h3>
+          <p>منصة تجارة إلكترونية كاملة مع سلة مشتريات ولوحة تحكم.</p>
+          <div class="tags"><span class="tag">Next.js</span><span class="tag">Stripe</span><span class="tag">Tailwind</span></div>
+          <a href="#" class="project-link">عرض المشروع ←</a>
+        </div>
+      </div>
+      <div class="project reveal" data-category="frontend">
+        <div class="project-img project-img-2">📊</div>
+        <div class="project-body">
+          <h3>لوحة تحليلات ذكية</h3>
+          <p>لوحة تحكم تفاعلية لعرض بيانات الأعمال ورسوم بيانية حية.</p>
+          <div class="tags"><span class="tag">React</span><span class="tag">D3.js</span><span class="tag">TS</span></div>
+          <a href="#" class="project-link">عرض المشروع ←</a>
+        </div>
+      </div>
+      <div class="project reveal" data-category="fullstack">
+        <div class="project-img project-img-3">💬</div>
+        <div class="project-body">
+          <h3>تطبيق دردشة فوري</h3>
+          <p>تطبيق محادثة يدعم الغرف الخاصة مع إشعارات لحظية.</p>
+          <div class="tags"><span class="tag">Socket.io</span><span class="tag">Node</span><span class="tag">MongoDB</span></div>
+          <a href="#" class="project-link">عرض المشروع ←</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-wrap reveal">
+      <h2>لديك فكرة؟ <span class="grad">لنصنعها معاً</span></h2>
+      <p>أنا متاح دائماً للعمل على مشاريع جديدة، سواء كانت مواقع أو تطبيقات أو استشارات تقنية.</p>
+
+      <!-- نموذج تواصل (JS) -->
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <input type="text" name="name" placeholder="اسمك" required>
+          <input type="email" name="email" placeholder="بريدك الإلكتروني" required>
+        </div>
+        <textarea name="message" placeholder="رسالتك..." rows="4" required></textarea>
+        <button type="submit" class="btn btn-primary">📩 إرسال الرسالة</button>
+        <p class="form-msg" id="formMsg"></p>
+      </form>
+
+      <div class="socials">
+        <a href="#" class="social">in</a>
+        <a href="#" class="social">fa</a>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>heshamcrazy — جميع الحقوق محفوظة © 2026</footer>
+
+  <!-- زر العودة للأعلى (JS) -->
+  <button class="back-to-top" id="backToTop" aria-label="أعلى الصفحة">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
