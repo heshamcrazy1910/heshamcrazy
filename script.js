@@ -231,6 +231,7 @@
   }
 
   /* ========== 10) نموذج التواصل ========== */
+  /* ========== 10) نموذج التواصل (Web3Forms API) ========== */
   function initContactForm() {
     var form = document.getElementById('contactForm');
     if (!form) return;
@@ -245,6 +246,7 @@
       var message = form.querySelector('[name="message"]');
       var valid = true;
 
+      // التحقق من الحقول
       [name, email, message].forEach(function (f) {
         if (!f) return;
         f.classList.remove('error');
@@ -264,24 +266,45 @@
         return;
       }
 
-      // هنا ممكن تستخدم fetch لإرسال البيانات لسيرفر حقيقي
+      // بدء عملية الإرسال
       var btn = form.querySelector('button[type="submit"]');
       var originalText = btn.textContent;
 
-      if (msg) {
-        msg.textContent = '✅ تم إرسال رسالتك بنجاح! هرد عليك قريباً';
-        msg.className = 'form-msg success';
-      }
-
-      btn.textContent = '✅ تم الإرسال';
+      btn.textContent = '⏳ جاري الإرسال...';
       btn.disabled = true;
+      if (msg) { msg.textContent = ''; msg.className = 'form-msg'; }
 
-      setTimeout(function () {
-        form.reset();
-        btn.textContent = originalText;
-        btn.disabled = false;
-        if (msg) { msg.textContent = ''; msg.className = 'form-msg'; }
-      }, 3500);
+      // الاتصال بـ Web3Forms API
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.success) {
+            if (msg) {
+              msg.textContent = '✅ تم إرسال رسالتك بنجاح! هرد عليك قريباً';
+              msg.className = 'form-msg success';
+            }
+            form.reset(); // تفريغ الفورم بعد الإرسال
+          } else {
+            if (msg) {
+              msg.textContent = '❌ حصل خطأ، تأكد من المفتاح أو جرب تاني';
+              msg.className = 'form-msg error';
+            }
+          }
+        })
+        .catch(function () {
+          if (msg) {
+            msg.textContent = '❌ تعذر الاتصال، تأكد من الإنترنت';
+            msg.className = 'form-msg error';
+          }
+        })
+        .finally(function () {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        });
     });
   }
 
