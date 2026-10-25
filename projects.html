@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أعمالي | هشام حسن</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- شريط تقدم القراءة -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div class="bg-orbs">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
+    <!-- شريط التنقل (نفس الصفحة الرئيسية) -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo-white.png.png" alt="Logo" class="logo-light">
+            <img src="images/logo-black.png.png" alt="Logo" class="logo-dark">
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="index.html#about">عني</a></li>
+            <li><a href="index.html#skills">المهارات</a></li>
+            <li><a href="projects.html" class="active">أعمالي</a></li> <!-- الرابط النشط -->
+            <li><a href="index.html#contact">تواصل</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="icon-btn" id="themeBtn" title="تبديل المظهر">🌙</button>
+            <button class="icon-btn burger" id="burger">☰</button>
+        </div>
+    </nav>
+
+    <!-- قسم الأعمال -->
+    <section id="projects" style="padding-top: 150px; min-height: 100vh;">
+        <div class="sec-head reveal">
+            <div class="sec-tag">— معرض أعمالي —</div>
+            <h2 class="sec-title">كل <span>المشاريع</span></h2>
+            <p style="color: var(--muted); margin-top: 15px; max-width: 600px; margin-inline: auto;">
+                هنا تجد مجموعة من أفضل المشاريع التي عملت عليها، بدءاً من تطبيقات الويب وصولاً إلى المنصات المتكاملة.
+            </p>
+        </div>
+
+        <!-- أزرار الفلترة (تعمل بنفس الجافاسكريبت) -->
+        <div class="filter-btns reveal">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="frontend"> Frontend</button>
+            <button class="filter-btn" data-filter="fullstack">Fullstack</button>
+            <!-- <button class="filter-btn" data-filter="ui">تصميم (UI/UX)</button> -->
+        </div>
+
+        <!-- شبكة المشاريع -->
+        <div class="projects-grid" id="projectsGrid">
+
+
+            <!-- مشروع 1 -->
+            <div class="project reveal" data-category="fullstack">
+                <div class="project-img">🛒</div>
+                <div class="project-body">
+                    <h3>متجر إلكتروني حديث</h3>
+                    <p>منصة تجارة إلكترونية كاملة مع سلة مشتريات ولوحة تحكم للمدير.</p>
+                    <div class="tags"><span class="tag">html</span><span class="tag">css</span><span
+                            class="tag">javascript</span></div>
+                    <a href="#" class="project-link" target="_blank">عرض المشروع ←</a>
+                </div>
+            </div>
+
+            <!-- مشروع 2 -->
+            <div class="project reveal" data-category="frontend">
+                <div class="project-img project-img-2">📊</div>
+                <div class="project-body">
+                    <h3>لوحة تحليلات ذكية</h3>
+                    <p>لوحة تحكم تفاعلية لعرض بيانات الأعمال ورسوم بيانية حية.</p>
+                    <div class="tags"><span class="tag">html</span><span class="tag">css</span><span
+                            class="tag">javascript</span></div>
+                    <a href="#" class="project-link" target="_blank">عرض المشروع ←</a>
+                </div>
+            </div>
+
+            <!-- مشروع 3 -->
+            <div class="project reveal" data-category="fullstack">
+                <div class="project-img project-img-3">💬</div>
+                <div class="project-body">
+                    <h3>تطبيق دردشة فوري</h3>
+                    <p>تطبيق محادثة يدعم الغرف الخاصة مع إشعارات لحظية.</p>
+                    <div class="tags"><span class="tag">html</span><span class="tag">css</span><span
+                            class="tag">javascript</span></div>
+                    <a href="#" class="project-link" target="_blank">عرض المشروع ←</a>
+                </div>
+            </div>
+
+            <!-- مشروع 4 (تقدر تزود اللي أنت عايزه) 
+      <div class="project reveal" data-category="ui">
+        <div class="project-img" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">🎨</div>
+        <div class="project-body">
+          <h3>تصميم تطبيق موبايل</h3>
+          <p>واجهات مستخدم احترافية لتطبيق حجز تذاكر الطيران.</p>
+          <div class="tags"><span class="tag">Figma</span><span class="tag">UI Design</span></div>
+          <a href="#" class="project-link" target="_blank">عرض المشروع ←</a>
+        </div>
+      </div>
+-->
+        </div>
+    </section>
+
+    <footer>heshamcrazy — جميع الحقوق محفوظة © 2026</footer>
+
+    <!-- زر العودة للأعلى -->
+    <button class="back-to-top" id="backToTop" aria-label="أعلى الصفحة">↑</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

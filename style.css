@@ -28,6 +28,28 @@ body {
   width: 100%; /* السطر الجديد ده */
 }
 
+/* ========== صفحة الأعمال المستقلة ========== */
+#projects {
+  padding-bottom: 100px;
+}
+
+/* تنسيق زرار الرجوع للرئيسية لو حبيت تضيفه */
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 20px;
+  transition: .3s;
+}
+.back-home-btn:hover {
+  color: var(--primary);
+  transform: translateX(5px);
+}
+
+
 /* ========== Scroll Progress ========== */
 .scroll-progress{
   position:fixed;top:0;right:0;height:3px;
