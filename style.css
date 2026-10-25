@@ -14,11 +14,18 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;
-  background:var(--bg);color:var(--text);
-  overflow-x:hidden;transition:.4s;line-height:1.7;
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden; /* السطر الجديد ده */
+}
+body {
+  font-family: 'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: .4s;
+  line-height: 1.7;
+  width: 100%; /* السطر الجديد ده */
 }
 
 /* ========== Scroll Progress ========== */
@@ -52,7 +59,7 @@ nav{
 }
 
 .logo img {
-  height: 35px; /* تقدر تغير الرقم ده عشان تصغر أو تكبر اللوجو */
+  height: 48px;
   width: auto;
   object-fit: contain;
 }
@@ -246,4 +253,31 @@ footer{text-align:center;padding:40px 6%;color:var(--muted);font-size:.9rem;bord
   .nav-links a{display:block;padding:16px 6%;width:100%}
   .burger{display:grid}
   .back-to-top{bottom:20px;left:20px;width:44px;height:44px}
+
+  @media(max-width:900px) {
+  /* ... الكود القديم بتاعك ... */
+
+  /* تصليح الكروت الطايرة */
+  .fc1 {
+    left: -10px; /* بدل -10% */
+    top: 5%;
+  }
+  .fc2 {
+    right: -10px; /* بدل -8% */
+    bottom: 5%;
+  }
+
+  /* تصغير المسافات في قسم التواصل عشان متطلعش برة الشاشة */
+  .contact-wrap {
+    padding: 40px 20px;
+  }
+}
+
+@media(max-width:900px) {
+  .logo img {
+    height: 38px; /* حجم أصغر شوية في الموبايل */
+  }
+}
+
+
 }

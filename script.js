@@ -72,10 +72,10 @@
     if (!el) return;
 
     var roles = [
-      'مطور واجهات أمامية',
-      'خبير React & Next.js',
-      'مصمم تجربة مستخدم',
-      'صانع حلول رقمية'
+      'Front-End Developer',
+      'Problem Solving',
+      'Continuous Learning',
+      'IT',
     ];
     var i = 0, c = 0, deleting = false;
 

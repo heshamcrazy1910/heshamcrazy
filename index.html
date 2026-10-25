@@ -1,5 +1,7 @@
+c
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +12,7 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- شريط تقدم القراءة (JS) -->
@@ -22,18 +25,20 @@
   </div>
 
   <nav>
-<a href="#home" class="logo">
-  <img src="images/logo-white.png.png" alt="Logo" class="logo-light">
-  <img src="images/logo-black.png.png" alt="Logo" class="logo-dark">
-</a>
+    <a href="#home" class="logo">
+      <img src="images/logo-white.png.png" alt="Logo" class="logo-light">
+      <img src="images/logo-black.png.png" alt="Logo" class="logo-dark">
+    </a>
 
 
-<ul class="nav-links" id="navLinks">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#home" class="active">الرئيسية</a></li>
       <li><a href="#about">عني</a></li>
       <li><a href="#skills">المهارات</a></li>
+      <!--
       <li><a href="#experience">الخبرات</a></li>
       <li><a href="#projects">المشاريع</a></li>
+-->
       <li><a href="#contact">تواصل</a></li>
     </ul>
     <div class="nav-actions">
@@ -49,21 +54,21 @@
       <div class="typing"><span id="typed"></span><span class="cursor"></span></div>
       <p class="hero-desc">
         مطور واجهات أمامية شغوف، أصنع تجارب رقمية استثنائية بلمسة إبداعية.
-        متخصص في بناء تطبيقات ويب سريعة، جميلة، وسهلة الاستخدام.
+        متخصص في بناء تطبيقات ويب سريعة، جميلة، وسهلة الاستخدام
       </p>
       <div class="btns">
         <a href="#projects" class="btn btn-primary">شاهد أعمالي ←</a>
-        <button class="btn btn-ghost" data-copy="heshamcrazy0@gmail.com"> نسخ بريدي</button>
       </div>
     </div>
     <div class="hero-visual">
       <div class="avatar-wrap">
         <div class="avatar-ring"></div>
-<div class="avatar">
-  <div class="avatar-inner">
-    <img src="images/me.jpeg" alt="هشام حسن">
-  </div>
-</div>        <div class="float-card fc1"> 5+ سنوات خبرة</div>
+        <div class="avatar">
+          <div class="avatar-inner">
+            <img src="images/me.jpeg" alt="هشام حسن">
+          </div>
+        </div>
+        <div class="float-card fc1"> 5+ سنوات خبرة</div>
         <div class="float-card fc2"> 40+ مشروع</div>
       </div>
     </div>
@@ -76,13 +81,24 @@
     </div>
     <div class="about">
       <div class="about-card reveal">
-        <p>أنا هشام حسن، مطور واجهات أمامية، أعمل على تحويل الأفكار إلى منتجات رقمية حقيقية. أؤمن بأن التصميم الجيد ليس فقط ما يبدو جميلاً، بل ما يعمل بسلاسة ويحل مشكلة المستخدم.</p>
+        <p>أنا هشام حسن، مطور واجهات أمامية، أعمل على تحويل الأفكار إلى منتجات رقمية حقيقية. أؤمن بأن التصميم الجيد ليس
+          فقط ما يبدو جميلاً، بل ما يعمل بسلاسة ويحل مشكلة المستخدم.</p>
         <p>خلال السنوات الماضية عملت مع فرق مختلفة وشركات ناشئة، وبنيت تطبيقات ويب يستخدمها الآلاف يومياً.</p>
         <div class="stats">
-          <div class="stat"><h3 data-count="5" data-suffix="+">0</h3><p>سنوات خبرة</p></div>
-          <div class="stat"><h3 data-count="40" data-suffix="+">0</h3><p>مشروع منجز</p></div>
+          <div class="stat">
+            <h3 data-count="5" data-suffix="+">0</h3>
+            <p>سنوات خبرة</p>
+          </div>
+          <div class="stat">
+            <h3 data-count="40" data-suffix="+">0</h3>
+            <p>مشروع منجز</p>
+          </div>
+
+          <!--
           <div class="stat"><h3 data-count="25" data-suffix="+">0</h3><p>عميل سعيد</p></div>
           <div class="stat"><h3 data-count="12">0</h3><p>جائزة وتقدير</p></div>
+-->
+
         </div>
       </div>
       <div class="about-card reveal">
@@ -90,7 +106,6 @@
         <div class="info-list">
           <div class="info-row"><span>📍 الموقع</span><strong>القــاهــرة، مــــصــــر</strong></div>
           <div class="info-row"><span>💼 الوظيفة</span><strong>Senior Frontend</strong></div>
-          <div class="info-row"><span>📧 البريد</span><strong>heshamcrazy0@gmail.com</strong></div>
           <div class="info-row"><span>🎓 التعليم</span><strong> نظم المعلومات </strong></div>
           <div class="info-row"><span>🌐 اللغات</span><strong>عربي ، إنجليزي</strong></div>
         </div>
@@ -106,19 +121,37 @@
     <div class="skills-grid">
       <div class="skill-card reveal">
         <h3>🎨 تطوير الواجهات</h3>
-        <div class="skill-item"><div class="skill-top"><span>HTML5 / CSS3</span><span class="pct">95%</span></div><div class="bar"><span data-w="95"></span></div></div>
-        <div class="skill-item"><div class="skill-top"><span>JavaScript</span><span class="pct">92%</span></div><div class="bar"><span data-w="92"></span></div></div>
-        <div class="skill-item"><div class="skill-top"><span>React / Next.js</span><span class="pct">90%</span></div><div class="bar"><span data-w="90"></span></div></div>
+        <div class="skill-item">
+          <div class="skill-top"><span>HTML5 / CSS3</span><span class="pct">95%</span></div>
+          <div class="bar"><span data-w="95"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><span>JavaScript</span><span class="pct">92%</span></div>
+          <div class="bar"><span data-w="92"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><span>React / Next.js</span><span class="pct">90%</span></div>
+          <div class="bar"><span data-w="90"></span></div>
+        </div>
       </div>
       <div class="skill-card reveal">
         <h3>🚀 مهارات شخصية</h3>
-        <div class="skill-item"><div class="skill-top"><span>حل المشكلات</span><span class="pct">95%</span></div><div class="bar"><span data-w="95"></span></div></div>
-        <div class="skill-item"><div class="skill-top"><span>العمل الجماعي</span><span class="pct">93%</span></div><div class="bar"><span data-w="93"></span></div></div>
-        <div class="skill-item"><div class="skill-top"><span>التعلم المستمر</span><span class="pct">97%</span></div><div class="bar"><span data-w="97"></span></div></div>
+        <div class="skill-item">
+          <div class="skill-top"><span>Problem Solving</span><span class="pct">95%</span></div>
+          <div class="bar"><span data-w="95"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><span>iT</span><span class="pct">95%</span></div>
+          <div class="bar"><span data-w="95"></span></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><span>Continuous learning</span><span class="pct">97%</span></div>
+          <div class="bar"><span data-w="97"></span></div>
+        </div>
       </div>
     </div>
   </section>
-
+  <!--
   <section id="experience">
     <div class="sec-head reveal">
       <div class="sec-tag">— مسيرتي المهنية —</div>
@@ -136,8 +169,11 @@
       <div class="sec-tag">— أعمالي —</div>
       <h2 class="sec-title">المشاريع <span>المميزة</span></h2>
     </div>
+  -->
 
-    <!-- فلتر المشاريع (JS) -->
+
+  <!-- فلتر المشاريع (JS) -->
+  <!--
     <div class="filter-btns reveal">
       <button class="filter-btn active" data-filter="all">الكل</button>
       <button class="filter-btn" data-filter="frontend">واجهات</button>
@@ -175,6 +211,8 @@
     </div>
   </section>
 
+ -->
+
   <section id="contact">
     <div class="contact-wrap reveal">
       <h2>لديك فكرة؟ <span class="grad">لنصنعها معاً</span></h2>
@@ -182,19 +220,27 @@
 
       <!-- نموذج تواصل (JS) -->
       <form class="contact-form" id="contactForm" novalidate>
+
+        <!-- ⬇️ هنا مكان مفتاح الـ API بتاعك ⬇️ -->
+        <input type="hidden" name="access_key" value="02c94549-93a8-4cb1-8412-96073281eed4">
+        <input type="hidden" name="subject" value="رسالة جديدة من موقع هشام حسن">
+        <!-- ⬆️ متنساش تغير المفتاح ⬆️ -->
+
         <div class="form-row">
           <input type="text" name="name" placeholder="اسمك" required>
           <input type="email" name="email" placeholder="بريدك الإلكتروني" required>
         </div>
+
         <textarea name="message" placeholder="رسالتك..." rows="4" required></textarea>
+
         <button type="submit" class="btn btn-primary">📩 إرسال الرسالة</button>
+
         <p class="form-msg" id="formMsg"></p>
       </form>
 
       <div class="socials">
         <a href="#" class="social">in</a>
         <a href="#" class="social">fa</a>
-
       </div>
     </div>
   </section>
@@ -206,4 +252,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
