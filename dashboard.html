@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>لوحة التحكم | هشام حسن</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root { --dash-accent: var(--accent, var(--primary, #7c5cff)); }
+
+        .dash-wrap {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .dash-wrap { grid-template-columns: 1fr !important; }
+        }
+
+        .dash-card {
+            background: rgba(127, 127, 127, 0.07);
+            border: 1px solid rgba(127, 127, 127, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dash-card h3 { margin: 0 0 20px; font-size: 1.15rem; font-weight: 700; }
+
+        .field { margin-bottom: 16px; }
+        .field > label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .dash-card input[type="text"],
+        .dash-card input[type="url"],
+        .dash-card textarea,
+        .dash-card select {
+            width: 100%;
+            background: rgba(127, 127, 127, 0.09);
+            border: 1px solid rgba(127, 127, 127, 0.25);
+            color: inherit;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-family: inherit;
+            font-size: 0.93rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .dash-card input:focus,
+        .dash-card textarea:focus,
+        .dash-card select:focus {
+            border-color: var(--dash-accent);
+            box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.18);
+        }
+        .dash-card select option { background: #1c1c24; color: #fff; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 480px) { .two-col { grid-template-columns: 1fr; } }
+
+        .img-upload { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .img-upload input[type="text"] { flex: 1; min-width: 140px; }
+        .upload-btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px dashed rgba(127, 127, 127, 0.45);
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: background 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+        .upload-btn:hover { background: rgba(127, 127, 127, 0.1); border-color: var(--dash-accent); }
+        .or { color: var(--muted); font-size: 0.85rem; }
+
+        .img-preview img {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 12px;
+            margin-top: 12px;
+            border: 1px solid rgba(127, 127, 127, 0.2);
+            display: block;
+        }
+
+        .tags-input { display: flex; gap: 8px; }
+        .tags-input input { flex: 1; }
+        .tags-input .btn-ghost { padding: 10px 18px; border-radius: 12px; white-space: nowrap; }
+
+        .tags .tag { display: inline-flex; align-items: center; gap: 6px; }
+        .tag-remove {
+            background: none; border: none; color: inherit; cursor: pointer;
+            opacity: 0.6; font-size: 1rem; line-height: 1; padding: 0;
+        }
+        .tag-remove:hover { opacity: 1; color: #ef4444; }
+
+        .form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+        .btn-primary, .btn-ghost {
+            font-family: inherit;
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            transition: transform 0.15s, opacity 0.2s, background 0.2s;
+            border: 1px solid transparent;
+        }
+        a.btn-primary, a.btn-ghost { text-decoration: none; display: inline-flex; align-items: center; }
+        .btn-primary { background: var(--dash-accent); color: #fff; }
+        .btn-primary:hover { transform: translateY(-2px); opacity: 0.94; }
+        .btn-ghost { background: transparent; border-color: rgba(127, 127, 127, 0.3); color: inherit; }
+        .btn-ghost:hover { background: rgba(127, 127, 127, 0.1); }
+        .btn-ghost.danger { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); }
+        .btn-ghost.danger:hover { background: rgba(239, 68, 68, 0.08); }
+
+        .saved-item {
+            display: flex;
+            gap: 13px;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid rgba(127, 127, 127, 0.18);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            background: rgba(127, 127, 127, 0.04);
+        }
+        .saved-item:last-child { margin-bottom: 0; }
+        .saved-thumb {
+            width: 56px; height: 56px; border-radius: 10px; overflow: hidden; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(127, 127, 127, 0.12); font-size: 1.4rem;
+        }
+        .saved-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .saved-info { flex: 1; min-width: 0; }
+        .saved-info strong {
+            display: block; font-size: 0.93rem; margin-bottom: 3px;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .saved-cat {
+            font-size: 0.72rem; font-weight: 700; color: var(--dash-accent);
+            text-transform: uppercase; letter-spacing: 0.4px;
+        }
+        .saved-info .tags { margin-top: 6px; }
+        .saved-actions { display: flex; gap: 6px; }
+        .saved-actions button {
+            width: 34px; height: 34px; border-radius: 9px;
+            border: 1px solid rgba(127, 127, 127, 0.25);
+            background: transparent; color: inherit; cursor: pointer;
+            font-size: 0.95rem; transition: background 0.2s;
+        }
+        .saved-actions button:hover { background: rgba(127, 127, 127, 0.12); }
+
+        .empty { color: var(--muted); text-align: center; padding: 35px 10px; font-size: 0.9rem; line-height: 1.8; }
+        .hint { color: var(--muted); font-size: 0.85rem; line-height: 1.9; margin: 0 0 14px; }
+        .hint code {
+            background: rgba(127, 127, 127, 0.15); padding: 2px 7px; border-radius: 6px;
+            font-size: 0.78rem; direction: ltr; display: inline-block;
+        }
+
+        #codeOutput {
+            direction: ltr;
+            text-align: left;
+            font-family: ui-monospace, "Courier New", monospace;
+            font-size: 0.78rem;
+            line-height: 1.6;
+            min-height: 220px;
+            white-space: pre;
+            overflow: auto;
+            tab-size: 2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- شريط تقدم القراءة -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div class="bg-orbs">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
+    <!-- شريط التنقل -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo-white.png.png" alt="Logo" class="logo-light">
+            <img src="images/logo-black.png.png" alt="Logo" class="logo-dark">
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="index.html#about">عني</a></li>
+            <li><a href="index.html#skills">المهارات</a></li>
+            <li><a href="projects.html">أعمالي</a></li>
+            <li><a href="dashboard.html" class="active">لوحة التحكم</a></li>
+            <li><a href="index.html#contact">تواصل</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="icon-btn" id="themeBtn" title="تبديل المظهر">🌙</button>
+            <button class="icon-btn burger" id="burger">☰</button>
+        </div>
+    </nav>
+
+    <!-- لوحة التحكم -->
+    <section id="dashboard" style="padding-top: 150px; min-height: 100vh;">
+        <div class="sec-head reveal">
+            <div class="sec-tag">— لوحة التحكم —</div>
+            <h2 class="sec-title">إدارة <span>الأعمال</span></h2>
+            <p style="color: var(--muted); margin-top: 15px; max-width: 650px; margin-inline: auto;">
+                أضف مشاريعك من هنا، ثم انسخ كود HTML الجاهز والصقه داخل شبكة المشاريع في ملف
+                <code>projects.html</code>. البيانات تُحفظ محلياً في متصفحك.
+            </p>
+        </div>
+
+        <div class="dash-wrap">
+            <!-- فورم الإضافة -->
+            <div class="dash-card reveal">
+                <h3 id="formTitle">إضافة مشروع جديد</h3>
+                <form id="projectForm">
+                    <div class="field">
+                        <label for="pName">اسم المشروع</label>
+                        <input type="text" id="pName" placeholder="مثال: CrazyDf" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="pDesc">الوصف</label>
+                        <textarea id="pDesc" rows="3" placeholder="وصف مختصر للمشروع..." required></textarea>
+                    </div>
+
+                    <div class="field">
+                        <label>صورة المشروع</label>
+                        <div class="img-upload">
+                            <label for="pImageFile" class="upload-btn">📁 اختيار صورة</label>
+                            <input type="file" id="pImageFile" accept="image/*" hidden>
+                            <span class="or">أو</span>
+                            <input type="text" id="pImagePath" placeholder="images/project.png" dir="ltr">
+                        </div>
+                        <div id="imgPreview" class="img-preview"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>اللغات / التقنيات</label>
+                        <div class="tags-input">
+                            <input type="text" id="pTagInput" placeholder="اكتب تقنية واضغط Enter">
+                            <button type="button" id="addTagBtn" class="btn-ghost">إضافة</button>
+                        </div>
+                        <div id="tagsList" class="tags" style="margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="two-col">
+                        <div class="field">
+                            <label for="pCategory">الفئة</label>
+                            <select id="pCategory">
+                                <option value="frontend">Frontend (فرونت إند)</option>
+                                <option value="fullstack">Fullstack (فول ستاك)</option>
+                                <option value="ui">UI/UX (تصميم)</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="pStyle">ستايل الخلفية</label>
+                            <select id="pStyle">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="0">بدون</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="pLink">رابط المشروع</label>
+                        <input type="url" id="pLink" placeholder="https://..." dir="ltr">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="submitBtn" class="btn-primary">إضافة المشروع</button>
+                        <button type="button" id="resetBtn" class="btn-ghost">مسح</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- قائمة المشاريع المضافة -->
+            <div class="dash-card reveal">
+                <h3>المشاريع المضافة (<span id="count">0</span>)</h3>
+                <div id="savedList"></div>
+            </div>
+        </div>
+
+        <!-- كود HTML الجاهز -->
+        <div class="dash-wrap" style="grid-template-columns: 1fr;">
+            <div class="dash-card reveal">
+                <h3>كود HTML الجاهز</h3>
+                <p class="hint">
+                    انسخ الكود التالي والصقه داخل
+                    <code>&lt;div class="projects-grid" id="projectsGrid"&gt; ... &lt;/div&gt;</code>
+                    في ملف <code>projects.html</code>.
+                    <br>
+                    💡 لو رفعت صورة من جهازك، من الأفضل تحفظها في مجلد <code>images</code> وتكتب مسارها بدل رفعها مباشرة (الكود هيبقى أخف).
+                </p>
+                <textarea id="codeOutput" readonly rows="16" placeholder="سيظهر الكود هنا بعد إضافة مشاريع..."></textarea>
+                <div class="form-actions" style="margin-top: 14px;">
+                    <button type="button" id="copyBtn" class="btn-primary">نسخ الكود</button>
+                    <button type="button" id="exportBtn" class="btn-ghost">تصدير JSON</button>
+                    <button type="button" id="importBtn" class="btn-ghost">استيراد JSON</button>
+                    <input type="file" id="importFile" accept=".json" hidden>
+                    <a href="projects.html" class="btn-ghost">فتح صفحة الأعمال ↗</a>
+                    <button type="button" id="clearAllBtn" class="btn-ghost danger">حذف الكل</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>heshamcrazy — جميع الحقوق محفوظة © 2026</footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="أعلى الصفحة">↑</button>
+
+    <script src="script.js"></script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var STORAGE_KEY = 'hesham_dashboard_projects';
+
+            // عناصر
+            var form = document.getElementById('projectForm');
+            var formTitle = document.getElementById('formTitle');
+            var pName = document.getElementById('pName');
+            var pDesc = document.getElementById('pDesc');
+            var pImageFile = document.getElementById('pImageFile');
+            var pImagePath = document.getElementById('pImagePath');
+            var imgPreview = document.getElementById('imgPreview');
+            var pTagInput = document.getElementById('pTagInput');
+            var addTagBtn = document.getElementById('addTagBtn');
+            var tagsList = document.getElementById('tagsList');
+            var pCategory = document.getElementById('pCategory');
+            var pStyle = document.getElementById('pStyle');
+            var pLink = document.getElementById('pLink');
+            var submitBtn = document.getElementById('submitBtn');
+            var resetBtn = document.getElementById('resetBtn');
+            var savedList = document.getElementById('savedList');
+            var countEl = document.getElementById('count');
+            var codeOutput = document.getElementById('codeOutput');
+            var copyBtn = document.getElementById('copyBtn');
+            var exportBtn = document.getElementById('exportBtn');
+            var importBtn = document.getElementById('importBtn');
+            var importFile = document.getElementById('importFile');
+            var clearAllBtn = document.getElementById('clearAllBtn');
+
+            var projects = load();
+            var currentTags = [];
+            var currentImageData = '';
+            var editingId = null;
+
+            function load() {
+                try {
+                    var raw = localStorage.getItem(STORAGE_KEY);
+                    var data = raw ? JSON.parse(raw) : [];
+                    return Array.isArray(data) ? data : [];
+                } catch (e) { return []; }
+            }
+
+            function save() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+                    return true;
+                } catch (e) {
+                    alert('⚠️ تعذّر الحفظ: حجم البيانات كبير جداً (غالباً بسبب صور مرفوعة).\nيُفضّل وضع الصور في مجلد images واستخدام مسارها بدلاً من رفعها.');
+                    return false;
+                }
+            }
+
+            function escapeHtml(s) {
+                return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+                });
+            }
+
+            /* ---------- التاجات ---------- */
+            function renderTags() {
+                tagsList.innerHTML = currentTags.map(function (t, i) {
+                    return '<span class="tag">' + escapeHtml(t) +
+                        '<button type="button" class="tag-remove" data-i="' + i + '" aria-label="حذف">×</button></span>';
+                }).join('');
+            }
+
+            function addTag() {
+                var val = pTagInput.value.trim();
+                if (!val) return;
+                if (currentTags.indexOf(val) === -1) currentTags.push(val);
+                pTagInput.value = '';
+                pTagInput.focus();
+                renderTags();
+            }
+
+            addTagBtn.addEventListener('click', addTag);
+            pTagInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') { e.preventDefault(); addTag(); }
+            });
+            tagsList.addEventListener('click', function (e) {
+                var btn = e.target.closest('.tag-remove');
+                if (!btn) return;
+                currentTags.splice(Number(btn.dataset.i), 1);
+                renderTags();
+            });
+
+            /* ---------- الصورة ---------- */
+            function showPreview(src) {
+                imgPreview.innerHTML = '';
+                if (!src) return;
+                var img = new Image();
+                img.alt = 'preview';
+                img.onerror = function () { img.remove(); };
+                img.src = src;
+                imgPreview.appendChild(img);
+            }
+
+            pImageFile.addEventListener('change', function (e) {
+                var file = e.target.files[0];
+                if (!file) return;
+                var reader = new FileReader();
+                reader.onload = function (ev) {
+                    currentImageData = ev.target.result;
+                    pImagePath.value = '';
+                    showPreview(currentImageData);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            pImagePath.addEventListener('change', function () {
+                var path = pImagePath.value.trim();
+                currentImageData = '';
+                pImageFile.value = '';
+                showPreview(path);
+            });
+
+            /* ---------- إرسال الفورم ---------- */
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var name = pName.value.trim();
+                var desc = pDesc.value.trim();
+                if (!name || !desc) {
+                    alert('من فضلك اكتب اسم المشروع والوصف.');
+                    return;
+                }
+
+                var data = {
+                    name: name,
+                    desc: desc,
+                    image: pImagePath.value.trim() || currentImageData || '',
+                    tags: currentTags.slice(),
+                    category: pCategory.value,
+                    style: pStyle.value,
+                    link: pLink.value.trim()
+                };
+
+                if (editingId) {
+                    for (var i = 0; i < projects.length; i++) {
+                        if (projects[i].id === editingId) {
+                            projects[i] = Object.assign({}, projects[i], data);
+                            break;
+                        }
+                    }
+                } else {
+                    data.id = Date.now().toString() + Math.random().toString(36).slice(2, 6);
+                    projects.push(data);
+                }
+
+                save();
+                renderAll();
+                resetForm();
+            });
+
+            function resetForm() {
+                form.reset();
+                currentTags = [];
+                currentImageData = '';
+                editingId = null;
+                imgPreview.innerHTML = '';
+                formTitle.textContent = 'إضافة مشروع جديد';
+                submitBtn.textContent = 'إضافة المشروع';
+                renderTags();
+            }
+            resetBtn.addEventListener('click', resetForm);
+
+            /* ---------- تعديل مشروع ---------- */
+            function editProject(id) {
+                var p = null;
+                for (var i = 0; i < projects.length; i++) {
+                    if (projects[i].id === id) { p = projects[i]; break; }
+                }
+                if (!p) return;
+
+                editingId = id;
+                pName.value = p.name;
+                pDesc.value = p.desc;
+                currentTags = Array.isArray(p.tags) ? p.tags.slice() : [];
+                pCategory.value = p.category || 'frontend';
+                pStyle.value = p.style || '1';
+                pLink.value = p.link || '';
+
+                if (p.image && p.image.indexOf('data:') === 0) {
+                    currentImageData = p.image;
+                    pImagePath.value = '';
+                } else {
+                    currentImageData = '';
+                    pImagePath.value = p.image || '';
+                }
+                pImageFile.value = '';
+                showPreview(p.image || '');
+
+                renderTags();
+                formTitle.textContent = 'تعديل المشروع';
+                submitBtn.textContent = 'حفظ التعديل';
+                form.closest('.dash-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            /* ---------- عرض القائمة ---------- */
+            function renderList() {
+                countEl.textContent = projects.length;
+
+                if (!projects.length) {
+                    savedList.innerHTML = '<div class="empty">لا توجد مشاريع بعد.<br>ابدأ بإضافة أول مشروع من الفورم بجانبك.</div>';
+                    return;
+                }
+
+                savedList.innerHTML = projects.map(function (p) {
+                    var thumb = p.image
+                        ? '<img src="' + escapeHtml(p.image) + '" alt="">'
+                        : '🖼️';
+                    var tags = (p.tags || []).map(function (t) {
+                        return '<span class="tag">' + escapeHtml(t) + '</span>';
+                    }).join('');
+
+                    return '<div class="saved-item">' +
+                        '<div class="saved-thumb">' + thumb + '</div>' +
+                        '<div class="saved-info">' +
+                            '<strong>' + escapeHtml(p.name) + '</strong>' +
+                            '<span class="saved-cat">' + escapeHtml(p.category) + '</span>' +
+                            '<div class="tags">' + tags + '</div>' +
+                        '</div>' +
+                        '<div class="saved-actions">' +
+                            '<button type="button" data-act="edit" data-id="' + p.id + '" title="تعديل">✏️</button>' +
+                            '<button type="button" data-act="del" data-id="' + p.id + '" title="حذف">🗑️</button>' +
+                        '</div>' +
+                    '</div>';
+                }).join('');
+            }
+
+            savedList.addEventListener('click', function (e) {
+                var btn = e.target.closest('button[data-act]');
+                if (!btn) return;
+                var id = btn.dataset.id;
+
+                if (btn.dataset.act === 'edit') {
+                    editProject(id);
+                } else if (btn.dataset.act === 'del') {
+                    if (!confirm('هل تريد حذف هذا المشروع؟')) return;
+                    projects = projects.filter(function (p) { return p.id !== id; });
+                    if (editingId === id) resetForm();
+                    save();
+                    renderAll();
+                }
+            });
+
+            /* ---------- توليد كود HTML ---------- */
+            function generateCode() {
+                if (!projects.length) return '';
+
+                return projects.map(function (p) {
+                    var styleClass = (p.style && p.style !== '0') ? ' project-img-' + p.style : '';
+                    var tags = (p.tags || []).map(function (t) {
+                        return '<span class="tag">' + escapeHtml(t) + '</span>';
+                    }).join('');
+
+                    var lines = [];
+                    lines.push('');
+                    lines.push('            <!-- ' + escapeHtml(p.name) + ' -->');
+                    lines.push('            <div class="project reveal" data-category="' + escapeHtml(p.category) + '">');
+                    lines.push('                <div class="project-img' + styleClass + '">');
+                    if (p.image) {
+                        lines.push('                    <img src="' + escapeHtml(p.image) + '" alt="' + escapeHtml(p.name) + '">');
+                    }
+                    lines.push('                </div>');
+                    lines.push('                <div class="project-body">');
+                    lines.push('                    <h3>' + escapeHtml(p.name) + '</h3>');
+                    lines.push('                    <p>' + escapeHtml(p.desc) + '</p>');
+                    lines.push('                    <div class="tags">' + tags + '</div>');
+                    if (p.link) {
+                        lines.push('                    <a href="' + escapeHtml(p.link) + '" class="project-link" target="_blank">عرض المشروع ←</a>');
+                    }
+                    lines.push('                </div>');
+                    lines.push('            </div>');
+
+                    return lines.join('\n');
+                }).join('\n');
+            }
+
+            function renderAll() {
+                renderList();
+                codeOutput.value = generateCode();
+            }
+
+            /* ---------- نسخ الكود ---------- */
+            copyBtn.addEventListener('click', function () {
+                if (!codeOutput.value.trim()) {
+                    alert('لا يوجد كود لنسخه. أضف مشروعاً أولاً.');
+                    return;
+                }
+                var done = function () {
+                    var original = copyBtn.textContent;
+                    copyBtn.textContent = '✓ تم النسخ';
+                    setTimeout(function () { copyBtn.textContent = original; }, 1500);
+                };
+                var fallbackCopy = function () {
+                    codeOutput.focus();
+                    codeOutput.select();
+                    try { document.execCommand('copy'); done(); }
+                    catch (err) { alert('تعذّر النسخ. حدّد الكود وانسخه يدوياً.'); }
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(codeOutput.value).then(done).catch(fallbackCopy);
+                } else {
+                    fallbackCopy();
+                }
+            });
+
+            /* ---------- تصدير / استيراد JSON ---------- */
+            exportBtn.addEventListener('click', function () {
+                if (!projects.length) {
+                    alert('لا توجد مشاريع لتصديرها.');
+                    return;
+                }
+                var blob = new Blob([JSON.stringify(projects, null, 2)], { type: 'application/json' });
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'projects-backup.json';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
+            });
+
+            importBtn.addEventListener('click', function () { importFile.click(); });
+
+            importFile.addEventListener('change', function (e) {
+                var file = e.target.files[0];
+                if (!file) return;
+                var reader = new FileReader();
+                reader.onload = function (ev) {
+                    try {
+                        var data = JSON.parse(ev.target.result);
+                        if (!Array.isArray(data)) throw new Error('bad');
+                        data.forEach(function (p) {
+                            if (!p.id) p.id = Date.now().toString() + Math.random().toString(36).slice(2, 6);
+                            if (!Array.isArray(p.tags)) p.tags = [];
+                        });
+                        projects = data;
+                        save();
+                        renderAll();
+                        alert('✅ تم استيراد ' + projects.length + ' مشروع.');
+                    } catch (err) {
+                        alert('ملف JSON غير صالح.');
+                    }
+                };
+                reader.readAsText(file);
+                importFile.value = '';
+            });
+
+            clearAllBtn.addEventListener('click', function () {
+                if (!projects.length) return;
+                if (!confirm('هل تريد حذف كل المشاريع نهائياً؟')) return;
+                projects = [];
+                resetForm();
+                save();
+                renderAll();
+            });
+
+            /* ---------- تشغيل ---------- */
+            renderTags();
+            renderAll();
+        })();
+    </script>
+</body>
+
+</html>
