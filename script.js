@@ -171,21 +171,22 @@
     var grid = document.getElementById('projectsGrid');
     if (!btns.length || !grid) return;
 
-    var projects = grid.querySelectorAll('.project');
-
     btns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         btns.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
 
         var filter = btn.getAttribute('data-filter');
-        projects.forEach(function (p) {
+        
+        // بنجيب المشاريع في كل مرة بنضغط على الزرار عشان يقرأ اللي ظهر جديد من ملف الـ JSON
+        var currentProjects = grid.querySelectorAll('.project');
+        
+        currentProjects.forEach(function (p) {
           var show = (filter === 'all' || p.getAttribute('data-category') === filter);
           if (show) {
             p.style.display = '';
             p.style.animation = 'none';
-            // إعادة تشغيل الأنيميشن
-            void p.offsetWidth;
+            void p.offsetWidth; // trigger reflow
             p.style.animation = 'fadeIn .5s ease';
           } else {
             p.style.display = 'none';
@@ -230,7 +231,6 @@
     nums.forEach(function (el) { obs.observe(el); });
   }
 
-  /* ========== 10) نموذج التواصل ========== */
   /* ========== 10) نموذج التواصل (Web3Forms API) ========== */
   function initContactForm() {
     var form = document.getElementById('contactForm');
@@ -246,7 +246,6 @@
       var message = form.querySelector('[name="message"]');
       var valid = true;
 
-      // التحقق من الحقول
       [name, email, message].forEach(function (f) {
         if (!f) return;
         f.classList.remove('error');
@@ -266,7 +265,6 @@
         return;
       }
 
-      // بدء عملية الإرسال
       var btn = form.querySelector('button[type="submit"]');
       var originalText = btn.textContent;
 
@@ -274,7 +272,6 @@
       btn.disabled = true;
       if (msg) { msg.textContent = ''; msg.className = 'form-msg'; }
 
-      // الاتصال بـ Web3Forms API
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
@@ -287,7 +284,7 @@
               msg.textContent = '✅ تم إرسال رسالتك بنجاح! هرد عليك قريباً';
               msg.className = 'form-msg success';
             }
-            form.reset(); // تفريغ الفورم بعد الإرسال
+            form.reset();
           } else {
             if (msg) {
               msg.textContent = '❌ حصل خطأ، تأكد من المفتاح أو جرب تاني';
@@ -345,41 +342,3 @@
   }
 
 })();
-
-// كود عرض المشاريع تلقائياً من ملف JSON
-if (document.getElementById('projectsGrid')) {
-    fetch('projects.json')
-        .then(response => response.json())
-        .then(data => {
-            const grid = document.getElementById('projectsGrid');
-            
-            data.forEach(project => {
-                // تجهيز الفئات والتاجات
-                const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-                const imgHTML = project.image ? `<img src="${project.image}" alt="${project.name}">` : '';
-                const linkHTML = project.link ? `<a href="${project.link}" class="project-link" target="_blank">عرض المشروع ←</a>` : '';
-                
-                // رسم الكارت
-                const card = document.createElement('div');
-                card.className = 'project reveal';
-                card.setAttribute('data-category', project.category);
-                
-                card.innerHTML = `
-                    <div class="project-img project-img-${project.style || '0'}">
-                        ${imgHTML}
-                    </div>
-                    <div class="project-body">
-                        <h3>${project.name}</h3>
-                        <p>${project.desc}</p>
-                        <div class="tags">${tagsHTML}</div>
-                        ${linkHTML}
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            // لو بتستخدم مكتبة لأنيميشن الظهور (Reveal)
-            if (typeof reveal !== 'undefined') reveal(); 
-        })
-        .catch(error => console.error('خطأ في تحميل المشاريع:', error));
-}
