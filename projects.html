@@ -80,8 +80,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             var grid = document.getElementById('projectsGrid');
 
-            // جلب الملف من نفس المجلد
-            fetch('projects.json')
+            // ضفنا ?t=... عشان نمنع المتصفح من عمل كاش (Cache) للملف القديم
+            fetch('projects.json?t=' + new Date().getTime())
                 .then(function(response) {
                     if (!response.ok) throw new Error('لم يتم العثور على ملف projects.json');
                     return response.json();
@@ -101,12 +101,13 @@
                             tagsHTML = p.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('');
                         }
 
-                        var imgHTML = p.image ? '<img src="' + p.image + '" alt="' + p.name + '">' : '';
+                        var imgHTML = p.image ? '<img src="' + p.image + '" alt="' + p.name + '" style="width: 100%; height: 100%; object-fit: cover;">' : '';
                         var linkHTML = p.link ? '<a href="' + p.link + '" class="project-link" target="_blank">عرض المشروع ←</a>' : '';
                         var styleClass = (p.style && p.style !== '0') ? ' project-img-' + p.style : '';
 
+                        // ضفنا كلاس show وستايل مباشر عشان نضمن إن الكارت يظهر وميتخباش بسبب الأنيميشن
                         var cardHTML = 
-                            '<div class="project reveal" data-category="' + p.category + '">' +
+                            '<div class="project show" data-category="' + p.category + '" style="opacity: 1; transform: translateY(0);">' +
                                 '<div class="project-img' + styleClass + '">' +
                                     imgHTML +
                                 '</div>' +
@@ -120,11 +121,6 @@
 
                         grid.insertAdjacentHTML('beforeend', cardHTML);
                     });
-
-                    // إعادة تشغيل أنيميشن الظهور
-                    if (typeof reveal === 'function') {
-                        reveal();
-                    }
                 })
                 .catch(function(error) {
                     console.error(error);
