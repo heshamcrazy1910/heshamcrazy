@@ -1,16 +1,1 @@
-[
-  {
-    "name": "CrazyDf",
-    "desc": "منصة ويب فورية لتحويل الصور إلى PDF والعكس، واستخراج النصوص من الصور والجداول والمواقع وتحويلها إلى مستندات قابلة للتعديل دون تسجيل",
-    "image": "images/crazydf.png",
-    "tags": [
-      "HTML",
-      "CSS",
-      "JAVASCRIPT"
-    ],
-    "category": "frontend",
-    "style": "1",
-    "link": "https://tinyurl.com/DfCrazy",
-    "id": "17939798607383407"
-  }
-]
+[]
