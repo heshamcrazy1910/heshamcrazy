@@ -512,6 +512,30 @@
                 }
 
                 save();
+                            /* ---------- إرسال الفورم ---------- */
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var name = pName.value.trim();
+                // ... (باقي الكود اللي بيجيب البيانات) ...
+
+                if (editingId) {
+                    // كود التعديل
+                } else {
+                    // كود الإضافة
+                    data.id = Date.now().toString() + Math.random().toString(36).slice(2, 6);
+                    projects.push(data);
+                }
+
+                save(); // <--- السطر ده هو اللي بيحفظ في المتصفح
+                
+                // ⬇️⬇️ ضيف السطر ده هنا بالظبط تحت save() ⬇️⬇️
+                publishToGitHub(projects); 
+                // ⬆️⬆️ ------------------------------------------------- ⬆️⬆️
+
+                renderAll();
+                resetForm();
+            });
                 renderAll();
                 resetForm();
             });
