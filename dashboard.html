@@ -725,6 +725,65 @@
             /* ---------- تشغيل ---------- */
             renderTags();
             renderAll();
+                        /* ---------- إعدادات وربط GitHub ---------- */
+            var ghUser = document.getElementById('ghUsername');
+            var ghRepo = document.getElementById('ghRepo');
+            var ghToken = document.getElementById('ghToken');
+            var saveGhSettings = document.getElementById('saveGhSettings');
+
+            // تحميل الإعدادات لو كانت محفوظة قبل كده
+            if(localStorage.getItem('gh_user')) ghUser.value = localStorage.getItem('gh_user');
+            if(localStorage.getItem('gh_repo')) ghRepo.value = localStorage.getItem('gh_repo');
+            if(localStorage.getItem('gh_token')) ghToken.value = localStorage.getItem('gh_token');
+
+            // حفظ الإعدادات
+            saveGhSettings.addEventListener('click', function() {
+                localStorage.setItem('gh_user', ghUser.value.trim());
+                localStorage.setItem('gh_repo', ghRepo.value.trim());
+                localStorage.setItem('gh_token', ghToken.value.trim());
+                alert('✅ تم حفظ إعدادات جيت هب بنجاح!');
+            });
+
+            // دالة الرفع لجيت هب (اللي هتشتغل لما تضغط حفظ المشروع)
+            window.publishToGitHub = async function(projectsArray) {
+                var user = localStorage.getItem('gh_user');
+                var repo = localStorage.getItem('gh_repo');
+                var token = localStorage.getItem('gh_token');
+
+                if (!user || !repo || !token) return; // لو مفيش إعدادات، يتجاهل الرفع ويكمل حفظ محلي
+
+                var filePath = 'projects.json';
+                var apiUrl = 'https://api.github.com/repos/' + user + '/' + repo + '/contents/' + filePath;
+                var content = btoa(unescape(encodeURIComponent(JSON.stringify(projectsArray, null, 2)))); 
+
+                try {
+                    var getRes = await fetch(apiUrl, { headers: { 'Authorization': 'token ' + token } });
+                    var fileData = await getRes.json();
+                    var sha = fileData.sha; 
+
+                    var putRes = await fetch(apiUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': 'token ' + token,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: 'تحديث المشاريع من لوحة التحكم',
+                            content: content,
+                            sha: sha
+                        })
+                    });
+
+                    if (putRes.ok) {
+                        alert('✅ تم رفع المشروع وتحديث الموقع بنجاح!');
+                    } else {
+                        alert('❌ فشل الرفع. تأكد من صلاحيات التوكن.');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('❌ حدث خطأ في الاتصال بجيت هب.');
+                }
+            };
         })();
     </script>
 </body>
