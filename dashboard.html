@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
-    <title>لوحة التحكم | هشام حسن</title>
+    <title>DASHBOARD | HESHAM CRAZY</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -47,6 +47,7 @@
         }
 
         .dash-card input[type="text"],
+        .dash-card input[type="password"],
         .dash-card input[type="url"],
         .dash-card textarea,
         .dash-card select {
@@ -225,14 +226,13 @@
             <div class="sec-tag">— لوحة التحكم —</div>
             <h2 class="sec-title">إدارة <span>الأعمال</span></h2>
             <p style="color: var(--muted); margin-top: 15px; max-width: 650px; margin-inline: auto;">
-                أضف مشاريعك من هنا، ثم انسخ كود HTML الجاهز والصقه داخل شبكة المشاريع في ملف
-                <code>projects.html</code>. البيانات تُحفظ محلياً في متصفحك.
+                أضف مشاريعك من هنا. بمجرد الضغط على "إضافة المشروع"، سيتم حفظه محلياً ورفعه تلقائياً إلى موقعك على GitHub (إذا قمت بإعداد البيانات بالأسفل).
             </p>
         </div>
 
         <div class="dash-wrap">
             
-            <!-- ⬇️ ⬇️ ⬇️ ضيف الكارت ده هنا (فوق الفورم) ⬇️ ⬇️ ⬇️ -->
+            <!-- إعدادات جيت هب -->
             <div class="dash-card reveal" style="grid-column: 1 / -1; margin-bottom: 5px;">
                 <h3>⚙️ إعدادات الربط مع GitHub (لمرة واحدة فقط)</h3>
                 <p class="hint" style="margin-bottom: 15px;">
@@ -254,13 +254,11 @@
                 </div>
                 <button type="button" id="saveGhSettings" class="btn-ghost" style="margin-top: 5px;">حفظ إعدادات GitHub</button>
             </div>
-            <!-- ⬆️ ⬆️ ⬆️ نهاية كارت إعدادات جيت هب ⬆️ ⬆️ ⬆️ -->
 
-            <!-- فورم الإضافة (ده اللي كان موجود أصلاً) -->
+            <!-- فورم الإضافة -->
             <div class="dash-card reveal">
                 <h3 id="formTitle">إضافة مشروع جديد</h3>
                 <form id="projectForm">
-                    <!-- ... باقي كود الفورم بتاعك ... -->
                     <div class="field">
                         <label for="pName">اسم المشروع</label>
                         <input type="text" id="pName" placeholder="مثال: CrazyDf" required>
@@ -330,18 +328,14 @@
             </div>
         </div>
 
-        <!-- كود HTML الجاهز -->
+        <!-- كود HTML الجاهز (اختياري) -->
         <div class="dash-wrap" style="grid-template-columns: 1fr;">
             <div class="dash-card reveal">
                 <h3>كود HTML الجاهز</h3>
                 <p class="hint">
-                    انسخ الكود التالي والصقه داخل
-                    <code>&lt;div class="projects-grid" id="projectsGrid"&gt; ... &lt;/div&gt;</code>
-                    في ملف <code>projects.html</code>.
-                    <br>
-                    💡 لو رفعت صورة من جهازك، من الأفضل تحفظها في مجلد <code>images</code> وتكتب مسارها بدل رفعها مباشرة (الكود هيبقى أخف).
+                    لو حبيت تضيف المشاريع بطريقة الـ Static القديمة، تقدر تنسخ الكود ده وتحطه في <code>projects.html</code>.
                 </p>
-                <textarea id="codeOutput" readonly rows="16" placeholder="سيظهر الكود هنا بعد إضافة مشاريع..."></textarea>
+                <textarea id="codeOutput" readonly rows="10" placeholder="سيظهر الكود هنا..."></textarea>
                 <div class="form-actions" style="margin-top: 14px;">
                     <button type="button" id="copyBtn" class="btn-primary">نسخ الكود</button>
                     <button type="button" id="exportBtn" class="btn-ghost">تصدير JSON</button>
@@ -366,7 +360,7 @@
 
             var STORAGE_KEY = 'hesham_dashboard_projects';
 
-            // عناصر
+            // عناصر الفورم
             var form = document.getElementById('projectForm');
             var formTitle = document.getElementById('formTitle');
             var pName = document.getElementById('pName');
@@ -391,6 +385,12 @@
             var importFile = document.getElementById('importFile');
             var clearAllBtn = document.getElementById('clearAllBtn');
 
+            // إعدادات جيت هب
+            var ghUser = document.getElementById('ghUsername');
+            var ghRepo = document.getElementById('ghRepo');
+            var ghToken = document.getElementById('ghToken');
+            var saveGhSettings = document.getElementById('saveGhSettings');
+
             var projects = load();
             var currentTags = [];
             var currentImageData = '';
@@ -409,7 +409,7 @@
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
                     return true;
                 } catch (e) {
-                    alert('⚠️ تعذّر الحفظ: حجم البيانات كبير جداً (غالباً بسبب صور مرفوعة).\nيُفضّل وضع الصور في مجلد images واستخدام مسارها بدلاً من رفعها.');
+                    alert('⚠️ تعذّر الحفظ المحلي: حجم البيانات كبير جداً (بسبب صور مرفوعة).');
                     return false;
                 }
             }
@@ -478,6 +478,72 @@
                 showPreview(path);
             });
 
+            /* ---------- إعدادات GitHub ---------- */
+            if(localStorage.getItem('gh_user')) ghUser.value = localStorage.getItem('gh_user');
+            if(localStorage.getItem('gh_repo')) ghRepo.value = localStorage.getItem('gh_repo');
+            if(localStorage.getItem('gh_token')) ghToken.value = localStorage.getItem('gh_token');
+
+            saveGhSettings.addEventListener('click', function() {
+                localStorage.setItem('gh_user', ghUser.value.trim());
+                localStorage.setItem('gh_repo', ghRepo.value.trim());
+                localStorage.setItem('gh_token', ghToken.value.trim());
+                alert('✅ تم حفظ إعدادات جيت هب بنجاح!');
+            });
+
+            // دالة الرفع لجيت هب
+            window.publishToGitHub = async function(projectsArray) {
+                var user = localStorage.getItem('gh_user');
+                var repo = localStorage.getItem('gh_repo');
+                var token = localStorage.getItem('gh_token');
+
+                if (!user || !repo || !token) {
+                    alert('⚠️ تنبيه: أنت لم تقم بإعداد بيانات جيت هب فوق. المشروع اتحفظ في المتصفح بس ومترفعش للموقع.');
+                    return; 
+                }
+
+                var filePath = 'projects.json';
+                var apiUrl = 'https://api.github.com/repos/' + user + '/' + repo + '/contents/' + filePath;
+                // تحويل البيانات لـ Base64 يدعم اللغة العربية
+                var content = btoa(unescape(encodeURIComponent(JSON.stringify(projectsArray, null, 2)))); 
+
+                try {
+                    submitBtn.textContent = 'جاري الرفع...';
+                    submitBtn.disabled = true;
+
+                    var getRes = await fetch(apiUrl, { headers: { 'Authorization': 'token ' + token } });
+                    var fileData = getRes.ok ? await getRes.json() : null;
+                    var sha = fileData ? fileData.sha : null; 
+
+                    var putBody = {
+                        message: '🤖 تحديث المشاريع أوتوماتيك من لوحة التحكم',
+                        content: content
+                    };
+                    if (sha) putBody.sha = sha;
+
+                    var putRes = await fetch(apiUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': 'token ' + token,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(putBody)
+                    });
+
+                    if (putRes.ok) {
+                        alert('🚀 تم رفع المشروع وتحديث الموقع بنجاح!');
+                    } else {
+                        var errData = await putRes.json();
+                        alert('❌ فشل الرفع: ' + (errData.message || 'تأكد من التوكن واسم الريبو.'));
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('❌ حدث خطأ في الاتصال بجيت هب. تأكد من الإنترنت.');
+                } finally {
+                    submitBtn.textContent = editingId ? 'حفظ التعديل' : 'إضافة المشروع';
+                    submitBtn.disabled = false;
+                }
+            };
+
             /* ---------- إرسال الفورم ---------- */
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -511,32 +577,9 @@
                     projects.push(data);
                 }
 
-                save();
-                            /* ---------- إرسال الفورم ---------- */
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                var name = pName.value.trim();
-                // ... (باقي الكود اللي بيجيب البيانات) ...
-
-                if (editingId) {
-                    // كود التعديل
-                } else {
-                    // كود الإضافة
-                    data.id = Date.now().toString() + Math.random().toString(36).slice(2, 6);
-                    projects.push(data);
-                }
-
-                save(); // <--- السطر ده هو اللي بيحفظ في المتصفح
-                
-                // ⬇️⬇️ ضيف السطر ده هنا بالظبط تحت save() ⬇️⬇️
-                publishToGitHub(projects); 
-                // ⬆️⬆️ ------------------------------------------------- ⬆️⬆️
-
+                save(); 
                 renderAll();
-                resetForm();
-            });
-                renderAll();
+                publishToGitHub(projects); // استدعاء الرفع
                 resetForm();
             });
 
@@ -589,7 +632,7 @@
                 countEl.textContent = projects.length;
 
                 if (!projects.length) {
-                    savedList.innerHTML = '<div class="empty">لا توجد مشاريع بعد.<br>ابدأ بإضافة أول مشروع من الفورم بجانبك.</div>';
+                    savedList.innerHTML = '<div class="empty">لا توجد مشاريع بعد.<br>ابدأ بإضافة أول مشروع من الفورم.</div>';
                     return;
                 }
 
@@ -629,6 +672,7 @@
                     if (editingId === id) resetForm();
                     save();
                     renderAll();
+                    publishToGitHub(projects); // تحديث جيت هب بعد الحذف
                 }
             });
 
@@ -704,7 +748,7 @@
                 var url = URL.createObjectURL(blob);
                 var a = document.createElement('a');
                 a.href = url;
-                a.download = 'projects-backup.json';
+                a.download = 'projects.json';
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
@@ -744,70 +788,12 @@
                 resetForm();
                 save();
                 renderAll();
+                publishToGitHub(projects); // تحديث جيت هب بعد حذف الكل
             });
 
             /* ---------- تشغيل ---------- */
             renderTags();
             renderAll();
-                        /* ---------- إعدادات وربط GitHub ---------- */
-            var ghUser = document.getElementById('ghUsername');
-            var ghRepo = document.getElementById('ghRepo');
-            var ghToken = document.getElementById('ghToken');
-            var saveGhSettings = document.getElementById('saveGhSettings');
-
-            // تحميل الإعدادات لو كانت محفوظة قبل كده
-            if(localStorage.getItem('gh_user')) ghUser.value = localStorage.getItem('gh_user');
-            if(localStorage.getItem('gh_repo')) ghRepo.value = localStorage.getItem('gh_repo');
-            if(localStorage.getItem('gh_token')) ghToken.value = localStorage.getItem('gh_token');
-
-            // حفظ الإعدادات
-            saveGhSettings.addEventListener('click', function() {
-                localStorage.setItem('gh_user', ghUser.value.trim());
-                localStorage.setItem('gh_repo', ghRepo.value.trim());
-                localStorage.setItem('gh_token', ghToken.value.trim());
-                alert('✅ تم حفظ إعدادات جيت هب بنجاح!');
-            });
-
-            // دالة الرفع لجيت هب (اللي هتشتغل لما تضغط حفظ المشروع)
-            window.publishToGitHub = async function(projectsArray) {
-                var user = localStorage.getItem('gh_user');
-                var repo = localStorage.getItem('gh_repo');
-                var token = localStorage.getItem('gh_token');
-
-                if (!user || !repo || !token) return; // لو مفيش إعدادات، يتجاهل الرفع ويكمل حفظ محلي
-
-                var filePath = 'projects.json';
-                var apiUrl = 'https://api.github.com/repos/' + user + '/' + repo + '/contents/' + filePath;
-                var content = btoa(unescape(encodeURIComponent(JSON.stringify(projectsArray, null, 2)))); 
-
-                try {
-                    var getRes = await fetch(apiUrl, { headers: { 'Authorization': 'token ' + token } });
-                    var fileData = await getRes.json();
-                    var sha = fileData.sha; 
-
-                    var putRes = await fetch(apiUrl, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': 'token ' + token,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            message: 'تحديث المشاريع من لوحة التحكم',
-                            content: content,
-                            sha: sha
-                        })
-                    });
-
-                    if (putRes.ok) {
-                        alert('✅ تم رفع المشروع وتحديث الموقع بنجاح!');
-                    } else {
-                        alert('❌ فشل الرفع. تأكد من صلاحيات التوكن.');
-                    }
-                } catch (error) {
-                    console.error(error);
-                    alert('❌ حدث خطأ في الاتصال بجيت هب.');
-                }
-            };
         })();
     </script>
 </body>
