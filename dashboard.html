@@ -231,10 +231,36 @@
         </div>
 
         <div class="dash-wrap">
-            <!-- فورم الإضافة -->
+            
+            <!-- ⬇️ ⬇️ ⬇️ ضيف الكارت ده هنا (فوق الفورم) ⬇️ ⬇️ ⬇️ -->
+            <div class="dash-card reveal" style="grid-column: 1 / -1; margin-bottom: 5px;">
+                <h3>⚙️ إعدادات الربط مع GitHub (لمرة واحدة فقط)</h3>
+                <p class="hint" style="margin-bottom: 15px;">
+                    ضع بياناتك هنا عشان الداش بورد تقدر ترفع المشاريع للموقع أوتوماتيك. البيانات دي بتتحفظ في متصفحك بس ومحدش هيشوفها.
+                </p>
+                <div class="two-col" style="grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="field">
+                        <label>اسم المستخدم (GitHub Username)</label>
+                        <input type="text" id="ghUsername" placeholder="hesham..." dir="ltr">
+                    </div>
+                    <div class="field">
+                        <label>اسم الريبو (Repository Name)</label>
+                        <input type="text" id="ghRepo" placeholder="my-portfolio" dir="ltr">
+                    </div>
+                    <div class="field">
+                        <label>التوكن السري (Token)</label>
+                        <input type="password" id="ghToken" placeholder="ghp_..." dir="ltr">
+                    </div>
+                </div>
+                <button type="button" id="saveGhSettings" class="btn-ghost" style="margin-top: 5px;">حفظ إعدادات GitHub</button>
+            </div>
+            <!-- ⬆️ ⬆️ ⬆️ نهاية كارت إعدادات جيت هب ⬆️ ⬆️ ⬆️ -->
+
+            <!-- فورم الإضافة (ده اللي كان موجود أصلاً) -->
             <div class="dash-card reveal">
                 <h3 id="formTitle">إضافة مشروع جديد</h3>
                 <form id="projectForm">
+                    <!-- ... باقي كود الفورم بتاعك ... -->
                     <div class="field">
                         <label for="pName">اسم المشروع</label>
                         <input type="text" id="pName" placeholder="مثال: CrazyDf" required>
