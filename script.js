@@ -345,3 +345,41 @@
   }
 
 })();
+
+// كود عرض المشاريع تلقائياً من ملف JSON
+if (document.getElementById('projectsGrid')) {
+    fetch('projects.json')
+        .then(response => response.json())
+        .then(data => {
+            const grid = document.getElementById('projectsGrid');
+            
+            data.forEach(project => {
+                // تجهيز الفئات والتاجات
+                const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                const imgHTML = project.image ? `<img src="${project.image}" alt="${project.name}">` : '';
+                const linkHTML = project.link ? `<a href="${project.link}" class="project-link" target="_blank">عرض المشروع ←</a>` : '';
+                
+                // رسم الكارت
+                const card = document.createElement('div');
+                card.className = 'project reveal';
+                card.setAttribute('data-category', project.category);
+                
+                card.innerHTML = `
+                    <div class="project-img project-img-${project.style || '0'}">
+                        ${imgHTML}
+                    </div>
+                    <div class="project-body">
+                        <h3>${project.name}</h3>
+                        <p>${project.desc}</p>
+                        <div class="tags">${tagsHTML}</div>
+                        ${linkHTML}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // لو بتستخدم مكتبة لأنيميشن الظهور (Reveal)
+            if (typeof reveal !== 'undefined') reveal(); 
+        })
+        .catch(error => console.error('خطأ في تحميل المشاريع:', error));
+}
