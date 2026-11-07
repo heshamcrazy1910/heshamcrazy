@@ -26,5 +26,19 @@
     "style": "1",
     "link": "https://tinyurl.com/MUSAYEGH",
     "id": "1793982719461bje8"
+  },
+  {
+    "name": "Quick Command Playbook",
+    "desc": "تخيّل إنك بتشتغل على أكتر من نظام (Windows، Linux، Docker) وكل شوية بتنسى أوامر معينة أو بتبحث عنها في جوجل من جديد  التطبيق دا بيحل المشكلة دي — بتحفظ أوامرك المهمة في مكان واحد منظم، وتوصلها في ثانية",
+    "image": "images/playbook.png",
+    "tags": [
+      "html",
+      "css",
+      "javascript"
+    ],
+    "category": "frontend",
+    "style": "1",
+    "link": "https://tinyurl.com/command-playbook",
+    "id": "17940855883840qdo"
   }
 ]
