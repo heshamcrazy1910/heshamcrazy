@@ -75,7 +75,7 @@
       'Front-End Developer',
       'Problem Solving',
       'Continuous Learning',
-      'IT',
+      'Information Technology',
     ];
     var i = 0, c = 0, deleting = false;
 
